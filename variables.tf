@@ -1,7 +1,3 @@
-variable "resource_group_name" {
- description = "The name of resource group "
-}
-
-variable "location" { 
- description = "Location "
+variable "resource-group-name" {
+ description = "The name of resource group"
 }
