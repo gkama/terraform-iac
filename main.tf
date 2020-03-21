@@ -3,7 +3,13 @@ provider "azurerm" {
  features { }  
 }
 
+locals {
+  resource_group_name = "terraform-iac"
+  location = "eastus"
+}
+
+
 resource "azurerm_resource_group" "rg" {
- name     = var.resource-group-name
- location = "East US"
+ name     = local.resource_group_name
+ location = local.location
 }
