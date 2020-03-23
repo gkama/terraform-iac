@@ -15,11 +15,9 @@ provider "azurerm" {
 
 locals {
   resource_group_name = "terraform-iac"
-  location = var.location
 }
-
 
 resource "azurerm_resource_group" "rg" {
  name     = local.resource_group_name
- location = local.location
+ location = var.location
 }
