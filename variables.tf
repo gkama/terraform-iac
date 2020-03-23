@@ -1,3 +1,3 @@
-#variable "resource-group-name" {
-# description = "The name of resource group"
+#variable "subscription-id" {
+# description = "The id of the sibscription to create the resources"
 #}
