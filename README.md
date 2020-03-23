@@ -10,15 +10,9 @@ terraform apply
 
 `terraform.tfvars`
 ```
-subscription_id = ""
-
-tenant_id = ""
-
-client_id = ""
-
-client_secret = ""
-
-resource_group_name = "BestResourceGroup"
-
+subscription-id = ""
+tenant-id = ""
+client-id = ""
+client-secret = ""
 location = "eastus"
 ```
