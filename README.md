@@ -8,7 +8,7 @@ terraform plan
 terraform apply
 ```
 
-`terraform.tfvars`
+terraform.tfvars
 ```
 subscription-id = ""
 tenant-id = ""
