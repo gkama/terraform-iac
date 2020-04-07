@@ -16,7 +16,7 @@ provider "azurerm" {
 }
 
 
-resource "azurerm_resource_group" "terraform-iac" {
+resource "azurerm_resource_group" "rg" {
  name     = "terraform-iac"
  location = var.location
 
@@ -28,8 +28,8 @@ resource "azurerm_resource_group" "terraform-iac" {
 
 resource "azurerm_application_insights" "Heimdall" {
   name                = "Heimdall"
-  location            = azurerm_resource_group.terraform-iac.location
-  resource_group_name = azurerm_resource_group.terraform-iac.name
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
   application_type    = "web"
 
   tags                = {
@@ -43,4 +43,17 @@ output "heimdall_instrumentation_key" {
 
 output "heimdall_app_id" {
   value = azurerm_application_insights.Heimdall.app_id
+}
+
+
+resource "azurerm_container_registry" "gkama" {
+  name                     = "gkama"
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = azurerm_resource_group.rg.location
+  sku                      = "Basic"
+  admin_enabled            = false
+
+  tags                     = {
+    environment = var.environment
+  }
 }
