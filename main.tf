@@ -3,6 +3,8 @@ variable tenant_id {}
 variable client_id {}
 variable client_secret {}
 variable location {}
+variable environment {}
+
 
 provider "azurerm" {
  version = "~> 2.0.0"
@@ -17,6 +19,10 @@ provider "azurerm" {
 resource "azurerm_resource_group" "terraform-iac" {
  name     = "terraform-iac"
  location = var.location
+
+ tags     = {
+    environment = var.environment
+  }
 }
 
 
@@ -25,6 +31,10 @@ resource "azurerm_application_insights" "Heimdall" {
   location            = azurerm_resource_group.terraform-iac.location
   resource_group_name = azurerm_resource_group.terraform-iac.name
   application_type    = "web"
+
+  tags                = {
+    environment = var.environment
+  }
 }
 
 output "heimdall_instrumentation_key" {
