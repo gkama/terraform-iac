@@ -17,10 +17,10 @@ provider "azurerm" {
 
 
 resource "azurerm_resource_group" "rg" {
- name     = "terraform-iac"
- location = var.location
-
- tags     = {
+  name     = "terraform-iac"
+  location = var.location
+  
+  tags = {
     environment = var.environment
   }
 }
@@ -32,7 +32,7 @@ resource "azurerm_application_insights" "Heimdall" {
   location            = azurerm_resource_group.rg.location
   application_type    = "web"
 
-  tags                = {
+  tags = {
     environment = var.environment
   }
 }
@@ -53,7 +53,21 @@ resource "azurerm_container_registry" "gkamacr" {
   sku                      = "Basic"
   admin_enabled            = false
 
-  tags                     = {
+  tags = {
+    environment = var.environment
+  }
+}
+
+
+resource "azurerm_storage_account" "gkama-storage-account" {
+  name                     = "gkamastorage"
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = azurerm_resource_group.rg.location
+  account_kind             = "StorageV2"
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+
+  tags = {
     environment = var.environment
   }
 }
@@ -71,7 +85,7 @@ resource "azurerm_app_service_plan" "gkama-service-plan" {
     size = "B1"
   }
 
-  tags                     = {
+  tags = {
     environment = var.environment
   }
 }
