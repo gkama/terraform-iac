@@ -15,4 +15,5 @@ tenant-id = ""
 client-id = ""
 client-secret = ""
 location = "eastus"
+environment = "dev"
 ```
