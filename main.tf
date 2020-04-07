@@ -46,8 +46,8 @@ output "heimdall_app_id" {
 }
 
 
-resource "azurerm_container_registry" "gkama" {
-  name                     = "gkama"
+resource "azurerm_container_registry" "gkamacr" {
+  name                     = "gkamacr"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   sku                      = "Basic"
