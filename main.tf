@@ -23,10 +23,10 @@ resource "azurerm_resource_group" "terraform-iac" {
 resource "azurerm_service_fabric_cluster" "gkama-servicefabric" {
   name                 = "gkama-servicefabric"
   resource_group_name  = azurerm_resource_group.terraform-iac.name
-  location             = azurerm_resource_group.example.location
+  location             = azurerm_resource_group.terraform-iac.location
   reliability_level    = "Bronze"
   upgrade_mode         = "Manual"
-  cluster_code_version = "6.5.639.9590"
+  cluster_code_version = "7.0.469.1"
   vm_image             = "Linux"
   management_endpoint  = "https://example:80"
 
