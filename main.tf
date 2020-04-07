@@ -20,21 +20,17 @@ resource "azurerm_resource_group" "terraform-iac" {
 }
 
 
-resource "azurerm_service_fabric_cluster" "gkama-servicefabric" {
-  name                 = "gkama-servicefabric"
-  resource_group_name  = azurerm_resource_group.terraform-iac.name
-  location             = azurerm_resource_group.terraform-iac.location
-  reliability_level    = "Bronze"
-  upgrade_mode         = "Manual"
-  cluster_code_version = "7.0.469.1"
-  vm_image             = "Linux"
-  management_endpoint  = "https://example:80"
+resource "azurerm_application_insights" "Heimdall" {
+  name                = "Heimdall"
+  location            = azurerm_resource_group.terraform-iac.location
+  resource_group_name = azurerm_resource_group.terraform-iac.name
+  application_type    = "web"
+}
 
-  node_type {
-    name                 = "first"
-    instance_count       = 3
-    is_primary           = true
-    client_endpoint_port = 2020
-    http_endpoint_port   = 80
-  }
+output "heimdall_instrumentation_key" {
+  value = azurerm_application_insights.Heimdall.instrumentation_key
+}
+
+output "heimdall_app_id" {
+  value = azurerm_application_insights.Heimdall.app_id
 }
