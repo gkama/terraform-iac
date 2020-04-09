@@ -8,11 +8,12 @@ variable environment {}
 
 provider "azurerm" {
  version = "~> 2.0.0"
- features {}
  subscription_id = var.subscription_id
  tenant_id = var.tenant_id
  client_id = var.client_id
  client_secret = var.client_secret
+
+ features {}
 }
 
 
@@ -20,6 +21,44 @@ resource "azurerm_resource_group" "rg" {
   name     = "terraform-iac"
   location = var.location
   
+  tags = {
+    environment = var.environment
+  }
+}
+
+
+resource "azurerm_key_vault" "backend-api-vault" {
+  name                        = "backend-api-vault"
+  resource_group_name         = azurerm_resource_group.rg.name
+  location                    = azurerm_resource_group.rg.location
+  tenant_id                   = var.tenant_id
+  soft_delete_enabled         = false
+  purge_protection_enabled    = false
+
+  sku_name = "standard"
+
+  access_policy {
+    tenant_id = var.tenant_id
+    object_id = var.client_id
+
+    key_permissions = [
+      "get",
+    ]
+
+    secret_permissions = [
+      "get",
+    ]
+
+    storage_permissions = [
+      "get",
+    ]
+  }
+
+  network_acls {
+    default_action = "Deny"
+    bypass         = "AzureServices"
+  }
+
   tags = {
     environment = var.environment
   }
